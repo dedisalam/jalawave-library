@@ -10,9 +10,13 @@ class Cluster {
 
   #env: string;
 
-  #port: number;
+  #port: number | string;
 
-  constructor(app: Application, logger: winston.Logger, config: { env: string, port: number }) {
+  constructor(
+    app: Application,
+    logger: winston.Logger,
+    config: { env: string, port: number | string },
+  ) {
     this.#app = app;
     this.#logger = logger;
     this.#env = config.env;
