@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import { connect, set } from 'mongoose';
 import type winston from 'winston';
 import type { Application } from 'express';
 import type Middleware from './interfaces';
@@ -16,10 +17,22 @@ class Middlewares {
 
   #stream: morgan.StreamOptions;
 
-  constructor(app: Application, logger: winston.Logger, stream: morgan.StreamOptions) {
+  #env: string;
+
+  constructor(
+    app: Application,
+    Logger: {
+      logger: winston.Logger,
+      stream: morgan.StreamOptions,
+    },
+    config: {
+      env: string
+    },
+  ) {
     this.#app = app;
-    this.#logger = logger;
-    this.#stream = stream;
+    this.#logger = Logger.logger;
+    this.#stream = Logger.stream;
+    this.#env = config.env;
   }
 
   public MiddlewareError: Middleware['MiddlewareError'] = (error, req, res, next) => {
@@ -57,6 +70,18 @@ class Middlewares {
   public initializeRoutes: Middleware['initializeRoutes'] = (routes) => {
     routes.forEach((route) => {
       this.#app.use('/', route.router);
+    });
+  };
+
+  public connectToDatabase: Middleware['connectToDatabase'] = (config) => {
+    if (this.#env !== 'production') {
+      set('debug', true);
+    }
+
+    connect(config.url, config.options).then(() => {
+      this.#logger.info('database connected');
+    }).catch(() => {
+      this.#logger.error('connection to database error');
     });
   };
 }

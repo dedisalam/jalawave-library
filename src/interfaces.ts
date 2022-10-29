@@ -1,6 +1,7 @@
 import type {
   NextFunction, Request, Response, Router,
 } from 'express';
+import type { ConnectOptions } from 'mongoose';
 
 interface Error {
   status: number,
@@ -15,6 +16,10 @@ interface Routes {
   path?: string;
   router: Router;
 }
+interface ConfigDatabase {
+  url: string,
+  options: ConnectOptions
+}
 interface Middleware {
   MiddlewareError: (
     error: Error,
@@ -25,6 +30,7 @@ interface Middleware {
   initializeMiddlewares: (config: Config) => void
   initializeErrorHandling: () => void
   initializeRoutes: (routes: Routes[]) => void
+  connectToDatabase: (config: ConfigDatabase) => void
 }
 
 export default Middleware;
