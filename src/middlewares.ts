@@ -39,19 +39,19 @@ class Middlewares {
     this.#app.use(this.MiddlewareError);
   };
 
-  public initializeMiddlewares: Middleware['initializeMiddlewares'] = (app, config) => {
+  public initializeMiddlewares: Middleware['initializeMiddlewares'] = (config) => {
     const {
       LOG_FORMAT, ORIGIN, CREDENTIALS,
     } = config;
     const stream = this.#stream;
-    app.use(morgan(LOG_FORMAT, { stream }));
-    app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
-    app.use(hpp());
-    app.use(helmet());
-    app.use(compression());
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    app.use(cookieParser());
+    this.#app.use(morgan(LOG_FORMAT, { stream }));
+    this.#app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
+    this.#app.use(hpp());
+    this.#app.use(helmet());
+    this.#app.use(compression());
+    this.#app.use(express.json());
+    this.#app.use(express.urlencoded({ extended: true }));
+    this.#app.use(cookieParser());
   };
 
   public initializeRoutes: Middleware['initializeRoutes'] = (routes) => {

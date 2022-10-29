@@ -1,5 +1,5 @@
 import type {
-  Application, NextFunction, Request, Response, Router,
+  NextFunction, Request, Response, Router,
 } from 'express';
 
 interface Error {
@@ -22,7 +22,7 @@ interface Middleware {
     res: Response,
     next: NextFunction,
   ) => void;
-  initializeMiddlewares: (app: Application, config: Config) => void
+  initializeMiddlewares: (config: Config) => void
   initializeErrorHandling: () => void
   initializeRoutes: (routes: Routes[]) => void
 }
