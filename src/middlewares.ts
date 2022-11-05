@@ -57,7 +57,7 @@ class Middlewares {
     } = config;
     const stream = this.#stream;
     this.#app.use(morgan(LOG_FORMAT, { stream }));
-    this.#app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS, methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }));
+    this.#app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS, preflightContinue: true }));
     this.#app.use(hpp());
     this.#app.use(helmet());
     this.#app.use(compression());
