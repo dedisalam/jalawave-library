@@ -1,9 +1,0 @@
-GET http://202.51.232.124:3000/
-
-
-# Content-Type: application/json
-
-# {
-#     "email":"root@jalawave.net.id",
-#     "password": "j4l4w4v3!@#"
-# }
