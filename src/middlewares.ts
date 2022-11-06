@@ -57,7 +57,11 @@ class Middlewares {
       LOG_FORMAT, CREDENTIALS,
     } = config;
     const stream = this.#stream;
-    const whitelist = ['http://202.51.232.124:5000', 'http://202.51.232.124:5001'];
+    const whitelist = [
+      'http://202.51.232.124:5000',
+      'http://202.51.232.124:5001',
+      'http://202.51.232.124:5002',
+    ];
     const corsOption: CorsOptions = {
       origin(origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
