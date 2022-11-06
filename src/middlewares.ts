@@ -60,8 +60,6 @@ class Middlewares {
     const whitelist = [
       'http://202.51.232.124:3001',
       'http://202.51.232.124:3002',
-      'http://jalawave-backend-auth-development:3000',
-      'http://jalawave-backend-system-development:3000',
       'http://202.51.232.124:5000',
       'http://202.51.232.124:5001',
       'http://202.51.232.124:5002',
